@@ -1,0 +1,759 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MATD43 — Inferência B</title>
+
+    <meta name="description"
+          content="Página da disciplina MATD43 — Inferência B">
+
+    <style>
+        :root {
+            --primary: #243b53;
+            --primary-light: #486581;
+            --accent: #2f80ed;
+            --background: #f5f7fa;
+            --surface: #ffffff;
+            --text: #243b53;
+            --muted: #627d98;
+            --border: #d9e2ec;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ---------- Header ---------- */
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 70px 20px 65px;
+        }
+
+        .header-content {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .course-code {
+            font-size: 0.95rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.75;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2.2rem, 5vw, 3.6rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .subtitle {
+            margin-top: 12px;
+            font-size: 1.2rem;
+            max-width: 680px;
+            color: #d9e2ec;
+        }
+
+        /* ---------- Navigation ---------- */
+
+        nav {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            max-width: 1000px;
+            margin: auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 28px;
+            overflow-x: auto;
+        }
+
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            padding: 15px 0;
+            white-space: nowrap;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* ---------- Main ---------- */
+
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 55px 20px 80px;
+        }
+
+        section {
+            margin-bottom: 65px;
+        }
+
+        h2 {
+            font-size: 1.65rem;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-intro {
+            color: var(--muted);
+            max-width: 760px;
+            margin-bottom: 28px;
+        }
+
+        /* ---------- Cards ---------- */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 23px;
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(36, 59, 83, 0.08);
+        }
+
+        .card-number {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .card h3 {
+            margin: 7px 0 8px;
+            font-size: 1.12rem;
+        }
+
+        .card p {
+            margin: 0 0 16px;
+            color: var(--muted);
+            font-size: 0.93rem;
+        }
+
+        .card a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        /* ---------- Information boxes ---------- */
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 18px;
+        }
+
+        .info-box {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 22px;
+        }
+
+        .info-box strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .info-box span {
+            color: var(--muted);
+            font-size: 0.93rem;
+        }
+
+        /* ---------- Syllabus ---------- */
+
+        .syllabus {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 25px 30px;
+        }
+
+        .syllabus ul {
+            margin: 0;
+            padding-left: 22px;
+        }
+
+        .syllabus li {
+            margin: 7px 0;
+            color: #486581;
+        }
+
+        /* ---------- Footer ---------- */
+
+        footer {
+            background: var(--primary);
+            color: #d9e2ec;
+            padding: 35px 20px;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ---------- Mobile ---------- */
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 50px 20px;
+            }
+
+            main {
+                padding-top: 40px;
+            }
+
+            .syllabus {
+                padding: 20px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+    <div class="header-content">
+
+        <div class="course-code">
+            MATD43
+        </div>
+
+        <h1>Inferência B</h1>
+
+        <div class="subtitle">
+            Material de apoio para a disciplina de graduação em
+            Inferência Estatística.
+        </div>
+
+    </div>
+</header>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav>
+    <div class="nav-content">
+
+        <a href="#inicio">Início</a>
+        <a href="#notas">Notas de aula</a>
+        <a href="#exercicios">Exercícios</a>
+        <a href="#programa">Programa</a>
+        <a href="#recursos">Recursos</a>
+
+    </div>
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<main>
+
+    <!-- INTRODUCTION -->
+
+    <section id="inicio">
+
+        <h2>Sobre a disciplina</h2>
+
+        <p class="section-intro">
+            A disciplina apresenta os principais conceitos e métodos de
+            testes de hipóteses estatísticas, com ênfase na formulação
+            das hipóteses, tomada de decisão e interpretação dos
+            resultados em diferentes situações práticas.
+        </p>
+
+        <div class="info-grid">
+
+            <div class="info-box">
+                <strong>Disciplina</strong>
+                <span>MATD43 — Inferência B</span>
+            </div>
+
+            <div class="info-box">
+                <strong>Nível</strong>
+                <span>Graduação</span>
+            </div>
+
+            <div class="info-box">
+                <strong>Área</strong>
+                <span>Inferência Estatística</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- NOTES -->
+
+    <section id="notas">
+
+        <h2>Notas de aula</h2>
+
+        <p class="section-intro">
+            Notas de aula utilizadas como material de apoio à disciplina.
+            Clique em uma nota para visualizá-la diretamente no navegador.
+        </p>
+
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="card-number">
+                    Aula 01
+                </div>
+
+                <h3>Testes de hipóteses</h3>
+
+                <p>
+                    Hipóteses nula e alternativa, erros tipo I e II,
+                    nível de significância e região crítica.
+                </p>
+
+                <a href="notas/aula-01.pdf">
+                    Visualizar PDF →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-number">
+                    Aula 02
+                </div>
+
+                <h3>p-valor e tomada de decisão</h3>
+
+                <p>
+                    Definição e interpretação do p-valor e sua relação
+                    com a tomada de decisão em testes estatísticos.
+                </p>
+
+                <a href="notas/aula-02.pdf">
+                    Visualizar PDF →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-number">
+                    Aula 03
+                </div>
+
+                <h3>Testes para uma população</h3>
+
+                <p>
+                    Testes de hipóteses para os parâmetros de uma
+                    distribuição Normal e testes para grandes amostras.
+                </p>
+
+                <a href="notas/aula-03.pdf">
+                    Visualizar PDF →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-number">
+                    Aula 04
+                </div>
+
+                <h3>Função potência</h3>
+
+                <p>
+                    Função potência, regiões críticas e propriedades
+                    dos testes de hipóteses.
+                </p>
+
+                <a href="notas/aula-04.pdf">
+                    Visualizar PDF →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-number">
+                    Aula 05
+                </div>
+
+                <h3>Tamanho de amostra</h3>
+
+                <p>
+                    Determinação do tamanho de amostra para testes
+                    paramétricos.
+                </p>
+
+                <a href="notas/aula-05.pdf">
+                    Visualizar PDF →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-number">
+                    Aula 06
+                </div>
+
+                <h3>Comparação de duas populações</h3>
+
+                <p>
+                    Testes para comparação de duas populações Normais
+                    e não Normais.
+                </p>
+
+                <a href="notas/aula-06.pdf">
+                    Visualizar PDF →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-number">
+                    Aula 07
+                </div>
+
+                <h3>Amostras pareadas</h3>
+
+                <p>
+                    Testes de hipóteses para dados provenientes
+                    de amostras pareadas.
+                </p>
+
+                <a href="notas/aula-07.pdf">
+                    Visualizar PDF →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EXERCISES -->
+
+    <section id="exercicios">
+
+        <h2>Exercícios</h2>
+
+        <p class="section-intro">
+            Listas de exercícios para acompanhamento e revisão
+            do conteúdo apresentado nas aulas.
+        </p>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="card-number">
+                    Lista 01
+                </div>
+
+                <h3>Testes de hipóteses</h3>
+
+                <p>
+                    Exercícios sobre hipóteses, erros, nível de
+                    significância e p-valor.
+                </p>
+
+                <a href="exercicios/lista-01.pdf">
+                    Visualizar PDF →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-number">
+                    Lista 02
+                </div>
+
+                <h3>Testes para uma população</h3>
+
+                <p>
+                    Exercícios sobre testes para os parâmetros
+                    de uma distribuição Normal.
+                </p>
+
+                <a href="exercicios/lista-02.pdf">
+                    Visualizar PDF →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-number">
+                    Lista 03
+                </div>
+
+                <h3>Comparação de populações</h3>
+
+                <p>
+                    Exercícios sobre comparação de duas populações
+                    e amostras pareadas.
+                </p>
+
+                <a href="exercicios/lista-03.pdf">
+                    Visualizar PDF →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SYLLABUS -->
+
+    <section id="programa">
+
+        <h2>Programa da disciplina</h2>
+
+        <p class="section-intro">
+            Principais tópicos abordados ao longo do curso.
+        </p>
+
+        <div class="syllabus">
+
+            <ul>
+
+                <li>
+                    Testes de hipóteses estatísticas;
+                    hipóteses nula e alternativa.
+                </li>
+
+                <li>
+                    Tipos de erros e nível de significância.
+                </li>
+
+                <li>
+                    p-valor e tomada de decisão.
+                </li>
+
+                <li>
+                    Testes para os parâmetros de uma distribuição Normal.
+                </li>
+
+                <li>
+                    Testes paramétricos para grandes amostras.
+                </li>
+
+                <li>
+                    Função potência.
+                </li>
+
+                <li>
+                    Determinação do tamanho de amostras.
+                </li>
+
+                <li>
+                    Testes para comparação de duas populações
+                    Normais e não Normais.
+                </li>
+
+                <li>
+                    Amostras pareadas.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESOURCES -->
+
+    <section id="recursos">
+
+        <h2>Recursos</h2>
+
+        <p class="section-intro">
+            Materiais complementares e recursos computacionais
+            utilizados na disciplina.
+        </p>
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="card-number">
+                    Material
+                </div>
+
+                <h3>Referências bibliográficas</h3>
+
+                <p>
+                    Livros e referências recomendados para
+                    o acompanhamento da disciplina.
+                </p>
+
+                <a href="referencias.html">
+                    Ver referências →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-number">
+                    Computação
+                </div>
+
+                <h3>Códigos e exemplos</h3>
+
+                <p>
+                    Exemplos computacionais e códigos utilizados
+                    para ilustrar os métodos estatísticos.
+                </p>
+
+                <a href="codigo.html">
+                    Ver materiais →
+                </a>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-number">
+                    GitHub
+                </div>
+
+                <h3>Repositório</h3>
+
+                <p>
+                    Acesse os arquivos e materiais disponibilizados
+                    para a disciplina.
+                </p>
+
+                <a href="https://github.com/SEU-USUARIO/MATD43-Inferencia-B">
+                    Abrir repositório →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-content">
+
+        <p>
+            <strong>MATD43 — Inferência B</strong>
+        </p>
+
+        <p>
+            Material de apoio à disciplina
+        </p>
+
+    </div>
+
+</footer>
+
+
+</body>
+</html>
